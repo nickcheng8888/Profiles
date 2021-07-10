@@ -1,8 +1,5 @@
 import { useState } from 'react'
 import validateInfo from './validateInfo';
-import 'firebase/firestore';
-import auth from '../utils/firebase';
-import firebase from '../utils/firebase';
 
 
 const useForm = () => {
@@ -26,66 +23,51 @@ const useForm = () => {
 
     const handleChangeText = e => {
         const { name, value } = e.target
-        if (!/^[a-zA-Z]8$/.test(value)) {
-            setErrors(validateInfo(values, setValues))               
-        } else {
-            setValues({
-                ...values,
-                [name]: value
-            })
-        }
+        setValues({
+            ...values,
+            [name]: value
+        })
+        setErrors(validateInfo(values, setValues))   
+
 
         
     }
 
     const handleChangeNumbers = e => {
         const { name, value } = e.target
-        if (!/[0-9\b]+$/.test(value)) {
-            e.preventDefault();
-            
-        } else {
-            setValues({
-                ...values,
-                [name]: value
-            })
-        }
+        setValues({
+            ...values,
+            [name]: value
+        })
+        setErrors(validateInfo(values, setValues))   
 
-        if(!value){
-            setValues({
-                ...values,
-                [name]: value
-            })
-        }
-        
     }
 
      const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const uid = await firebase.auth().currentUser.uid;
-            if(uid)
-            {
-                await setValues({
-                    ...values,
-                    userid: uid
-                })
+        // try {
+        //     const uid = await firebase.auth().currentUser.uid;
+        //     if(uid)
+        //     {
+        //         await setValues({
+        //             ...values,
+        //             userid: uid
+        //         })
 
-            }
-            else {
-            console.log('Wait for it');
-           }
-        } catch(e){
-            console.log(e)
-        }
-        if(values.userid){
+        //     }
+        //     else {
+        //     console.log('Wait for it');
+        //    }
+        // } catch(e){
+        //     console.log(e)
+        // }
             setErrors(validateInfo(values, setValues))   
-        }
     };
 
     
 
     
-    return { handleChangeText, handleChangeNumbers, handleChangeEmail, handleFocus, handleSubmit, values, errors };
+    return { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, values, errors };
 };
 
 export default useForm; 

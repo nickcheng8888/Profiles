@@ -1,78 +1,61 @@
-import valid from "card-validator";
 import { useAccordionToggle } from "react-bootstrap";
-import Push from "./Push";
-import generateCipher from "./encrypt";
 
 export default function validateInfo(values, setValues) {
-  let errors = {};
- 
-  errors.show = true;
-  errors.variant = "danger";
-  errors.message = "An unknown error occured. Please try again later"
-  errors.cname = false;
-  errors.cnumber = false;
-  errors.ccvv = false;
-  errors.cexp = false;
+    let errors = {};
+    errors.show = true;
+    errors.variant = "danger";
+    errors.message = "An unknown error occured. Please try again later"
+    errors.fname = false;
+    errors.lname = false;
+    errors.mnumber = false;
+    errors.email = false;
 
+    //First name
+    console.log(values.firstName);
+    if (!/^[a-zA-Z]*$/.test(values.firstName)) {
+        errors.message = "Alphabet only"
+    } else {
+        errors.fname = true;
+    }
 
-  //Card CVV expiration
-  if (values.cardSecurityCode === null || !values.cardSecurityCode.trim()) {
-    errors.message = "Credit card CVC is not complete";
-  } else if (creditCard.cvv.isValid) {
-    errors.ccvv = true;
-  } else {
-    errors.message = "Credit card CVC is invalid";
-  }
+    // if (values.lastName === null || !values.lastName.trim()) {
+    //     errors.message = "Last name  is not complete";
+    // } else if (!/^[a-zA-Z]*$/.test(values.lastName)) {
+    //     errors.message = "Alphabet only"
+    // } else {
+    //     errors.lname = true;
+    // }
 
-  if (values.cardExpiration === null || !values.cardExpiration.trim()) {
-    errors.message = "Credit card expiration date is not complete";
-  } else if (creditCard.expirationDate.isValid) {
-    errors.cexp = true;
-  } else {
-    errors.message = "Credit card expiration date is invalid";
-  }
+    // // use email validator
+    // if (values.email === null || !values.email.trim()) {
+    //     errors.message = "Email  is not complete";
+    // } else if (!/^.*@.*$/.test(values.email)) {
+    //     errors.message = "Email address must contain @"
+    // } else {
+    //     errors.email = true;
+    // }
 
-  //Card Number Verification
-  if (values.cardNumber === null || !values.cardNumber.trim()) {
-    errors.message = "Credit card number is not complete";
-  } else 
-  if (creditCard.isPotentiallyValid) {
-    errors.cnumber = true;
-    errors.message = "Credit card number is valid";
+    // if (values.mobileNumber === null || !values.email.trim()) {
+    //     errors.message = "Email  is not complete";
+    // } else if (!/[0-9\b]+$/.test(values.mobileNumber)) {
+    //     errors.message = "Phone Number must only contain numbers"
+    // } else {
+    //     errors.number = true;
+    // }
 
-  } else {
-    errors.message = "Credit card number is invalid";
-  }
-
-  //Cardholder Name Verification
-  if (values.cardName === null || !values.cardName.trim()) {
-    errors.message = "Cardholder name is not complete";
-  } else if (creditCard.cardholderName.isValid) {
-    errors.cname = true;
-  } else {
-    errors.message = "Cardholder name is invalid";
-  }
-
-  if (values.userid === null || !values.cardName.trim()) {
-    errors.message = "Please login";
-  } else if (creditCard.cardholderName.isValid) {
-    errors.cname = true;
-  } else {
-    errors.message = "Cardholder name is invalid";
-  }
-
-  if (
-    errors.cname &&
-    errors.cnumber &&
-    errors.cexp &&
-    errors.ccvv
-  ) {
+    if (
+        errors.fname
+    // errors.fname &&
+    // errors.lname &&
+    // errors.mobileNumber &&
+    // errors.email
+    ) {
     errors.variant = "success";
-    errors.message = "Storing credit card...";
-    const hash = generateCipher(values, values.ccvv);
+    errors.message = "Updating details...";
+    // const hash = generateCipher(values, values.ccvv);
     // console.log(hash.toString());
-    Push(hash);
-  }
+    // Push(hash);
+    }
 
-  return errors;
-}
+    return errors;
+    }
