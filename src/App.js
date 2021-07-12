@@ -8,7 +8,7 @@ function App() {
     <Router>
         <Switch>
           <Route path="/editProfile" component={editProfile} />
-          {/* <Route path="/displayProfile" component={displayProfile} /> */}
+          <Route path="/displayProfile" component={displayProfile} />
         </Switch>
     </Router>
   </div>

@@ -27,7 +27,6 @@ const useForm = () => {
             ...values,
             [name]: value
         })
-        setErrors(validateInfo(values, setValues))   
 
 
         
@@ -39,7 +38,6 @@ const useForm = () => {
             ...values,
             [name]: value
         })
-        setErrors(validateInfo(values, setValues))   
 
     }
 

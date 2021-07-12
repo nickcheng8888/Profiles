@@ -1,4 +1,5 @@
 import { useAccordionToggle } from "react-bootstrap";
+import Push from "./Push";
 
 export default function validateInfo(values, setValues) {
     let errors = {};
@@ -7,54 +8,55 @@ export default function validateInfo(values, setValues) {
     errors.message = "An unknown error occured. Please try again later"
     errors.fname = false;
     errors.lname = false;
-    errors.mnumber = false;
+    errors.mobileNumber = false;
     errors.email = false;
 
     //First name
-    console.log(values.firstName);
-    if (!/^[a-zA-Z]*$/.test(values.firstName)) {
-        errors.message = "Alphabet only"
+    if (values.firstName === null || !values.firstName.trim()) {
+        errors.message = "First name  is incomplete";
+    } else if (!/^[a-zA-Z]*$/.test(values.firstName)) {
+        errors.message = "First name: Only alphabetical characters allowed"
     } else {
         errors.fname = true;
     }
 
-    // if (values.lastName === null || !values.lastName.trim()) {
-    //     errors.message = "Last name  is not complete";
-    // } else if (!/^[a-zA-Z]*$/.test(values.lastName)) {
-    //     errors.message = "Alphabet only"
-    // } else {
-    //     errors.lname = true;
-    // }
+    //Last name
+    if (values.lastName === null || !values.lastName.trim()) {
+        errors.message = "Last name  is incomplete";
+    } else if (!/^[a-zA-Z]*$/.test(values.lastName)) {
+        errors.message = "Last name: Only alphabetical characters allowed"
+    } else {
+        errors.lname = true;
+    }
 
-    // // use email validator
-    // if (values.email === null || !values.email.trim()) {
-    //     errors.message = "Email  is not complete";
-    // } else if (!/^.*@.*$/.test(values.email)) {
-    //     errors.message = "Email address must contain @"
-    // } else {
-    //     errors.email = true;
-    // }
+    if (values.mobileNumber === null || !values.email.trim()) {
+        errors.message = "Mobile number is incomplete";
+    } else if (!/[0-9\b]+$/.test(values.mobileNumber)) {
+        errors.message = "Phone Number: Only numbers allowed"
+    } else {
+        errors.mobileNumber = true;
+    }
 
-    // if (values.mobileNumber === null || !values.email.trim()) {
-    //     errors.message = "Email  is not complete";
-    // } else if (!/[0-9\b]+$/.test(values.mobileNumber)) {
-    //     errors.message = "Phone Number must only contain numbers"
-    // } else {
-    //     errors.number = true;
-    // }
+    // use email validator
+    if (values.email === null || !values.email.trim()) {
+        errors.message = "Email  is not complete";
+    } else if (!/^.*@.*$/.test(values.email)) {
+        errors.message = "Email address must contain @"
+    } else {
+        errors.email = true;
+    }
+
+    
 
     if (
-        errors.fname
-    // errors.fname &&
-    // errors.lname &&
-    // errors.mobileNumber &&
-    // errors.email
+    errors.fname &&
+    errors.lname &&
+    errors.mobileNumber &&
+    errors.email
     ) {
     errors.variant = "success";
     errors.message = "Updating details...";
-    // const hash = generateCipher(values, values.ccvv);
-    // console.log(hash.toString());
-    // Push(hash);
+    Push(values);
     }
 
     return errors;

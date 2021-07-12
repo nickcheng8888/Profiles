@@ -49,7 +49,7 @@ function NewForm(){
               data-testid="mobileNumber"
               name="mobileNumber"
               placeholder="Mobile Number"
-              value={values.lastName}
+              value={values.mobileNumber}
               onChange={handleChangeNumbers}
               onFocus={handleFocus}
               isValid={errors.cnumber}
