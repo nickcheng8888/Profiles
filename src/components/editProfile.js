@@ -2,12 +2,14 @@ import React from "react";
 import useForm from "./useForm";
 import { Button, Form, Alert, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 
 
 function NewForm(){
-  const { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, addUserID, values, errors } = useForm();
+  const { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, toDisplayProfile, values, errors } = useForm();
+  const history = useHistory();
+
   return (
     <div className="container">
       <div className="box justify-content-center align-items-center">
@@ -70,6 +72,7 @@ function NewForm(){
            </Form.Group>
           <Button
             size={"block"}
+            onClick={handleSubmit}
             data-testid="saveChanges"
             id="saveChanges"
             type="submit"

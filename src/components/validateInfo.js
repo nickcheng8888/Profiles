@@ -1,7 +1,9 @@
 import { useAccordionToggle } from "react-bootstrap";
 import Push from "./Push";
+import { useHistory } from "react-router-dom"
 
-export default function validateInfo(values, setValues) {
+
+export default function ValidateInfo(values, setValues) {
     let errors = {};
     errors.show = true;
     errors.variant = "danger";

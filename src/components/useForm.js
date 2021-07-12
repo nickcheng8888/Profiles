@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import validateInfo from './validateInfo';
+import { useHistory } from "react-router-dom"
 
 
 const useForm = () => {
@@ -10,6 +11,8 @@ const useForm = () => {
         email: '',
         focus: '',
     })
+
+    const [toDisplayProfile, setToDisplayProfile] = useState(false);
 
     
     const [errors, setErrors] = useState({})
@@ -40,32 +43,17 @@ const useForm = () => {
         })
 
     }
+    const history = useHistory();
 
      const handleSubmit = async (e) => {
         e.preventDefault()
-        // try {
-        //     const uid = await firebase.auth().currentUser.uid;
-        //     if(uid)
-        //     {
-        //         await setValues({
-        //             ...values,
-        //             userid: uid
-        //         })
-
-        //     }
-        //     else {
-        //     console.log('Wait for it');
-        //    }
-        // } catch(e){
-        //     console.log(e)
-        // }
-            setErrors(validateInfo(values, setValues))   
+        setErrors(validateInfo(values, setValues))
     };
 
     
 
     
-    return { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, values, errors };
+    return { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, values, errors, toDisplayProfile };
 };
 
 export default useForm; 
