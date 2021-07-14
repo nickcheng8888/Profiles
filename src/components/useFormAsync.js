@@ -18,20 +18,12 @@ const useFormAsync = () => {
     
     const [errors, setErrors] = useState({})
 
-    const handleFocus = (e) => {
-        setValues({ 
-            ...values,
-            focus: e.target.name
-        });
-    }
-
     const handleChangeText = e => {
         const { name, value } = e.target
         setValues({
             ...values,
             [name]: value
         })
-
 
         
     }
@@ -42,6 +34,8 @@ const useFormAsync = () => {
             ...values,
             [name]: value
         })
+
+
 
     }
     const handleChangeUpload = async(e) => {
@@ -56,10 +50,14 @@ const useFormAsync = () => {
             console.log(downloadString)
             setValues({
                 ...values,
-                imageURL: downloadString,
-                image: image
+                imageURL: downloadString
             })
         }
+        setValues({
+            ...values,
+            image: image
+        })
+
         
 
     }
@@ -69,15 +67,22 @@ const useFormAsync = () => {
         e.preventDefault();
         setErrors(validateInfo(values, setValues));
 
-        window.setTimeout(() => {
-            history.push('/displayProfile')
-         }, 1500)
+        if ( errors.fname &&
+            errors.lname &&
+            errors.mobileNumber &&
+            errors.email &&
+            errors.image){
+                window.setTimeout(() => {
+                    history.push('/displayProfile')
+                 }, 1500)
+            }
+        
     };
 
     
 
     
-    return { handleChangeText, handleChangeNumbers, handleFocus, handleSubmit, handleChangeUpload, values, errors };
+    return { handleChangeText, handleChangeNumbers, handleSubmit, handleChangeUpload, values, errors };
 };
 
 export default useFormAsync; 

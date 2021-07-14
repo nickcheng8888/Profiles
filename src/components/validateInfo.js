@@ -47,10 +47,19 @@ export default function ValidateInfo(values) {
         errors.email = true;
     }
 
-    if (!values.image.name.match(/.(jpg|jpeg|png)$/i)){
-        errors.message = "File must be jpg/png"
+    if (values.image.name === undefined) {
+        errors.message = "Image not uploaded"
     } else {
-        errors.image = true;
+        try{
+            if (!values.image.name.match(/.(jpg|jpeg|png)$/i)){
+                errors.message = "File must be jpg/png"
+                } else {
+                    errors.image = true;
+                }
+        } catch {
+            console.log("we have no image")
+        }
+        
     }
 
     
@@ -63,7 +72,7 @@ export default function ValidateInfo(values) {
     errors.image
     ) {
     errors.variant = "success";
-    errors.message = "Updating details...";
+    errors.message = "Updating details...Click Save Changes again to proceed to profile";
     Push(values);
     }
 
