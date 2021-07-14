@@ -9,7 +9,10 @@ export default function Push(values) {
         firstName: values.firstName,
         lastName: values.lastName,
         mobileNumber: values.mobileNumber,
-        email: values.email
+        email: values.email,
+        imageURL: values.imageURL
       }, { merge: true });
+
+    
 
 }

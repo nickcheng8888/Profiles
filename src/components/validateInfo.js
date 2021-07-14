@@ -1,9 +1,7 @@
-import { useAccordionToggle } from "react-bootstrap";
 import Push from "./Push";
-import { useHistory } from "react-router-dom"
 
 
-export default function ValidateInfo(values, setValues) {
+export default function ValidateInfo(values) {
     let errors = {};
     errors.show = true;
     errors.variant = "danger";
@@ -12,6 +10,7 @@ export default function ValidateInfo(values, setValues) {
     errors.lname = false;
     errors.mobileNumber = false;
     errors.email = false;
+    errors.image = true;
 
     //First name
     if (values.firstName === null || !values.firstName.trim()) {
@@ -41,11 +40,17 @@ export default function ValidateInfo(values, setValues) {
 
     // use email validator
     if (values.email === null || !values.email.trim()) {
-        errors.message = "Email  is not complete";
+        errors.message = "Email is not complete";
     } else if (!/^.*@.*$/.test(values.email)) {
         errors.message = "Email address must contain @"
     } else {
         errors.email = true;
+    }
+
+    if (!values.image.name.match(/.(jpg|jpeg|png)$/i)){
+        errors.message = "File must be jpg/png"
+    } else {
+        errors.image = true;
     }
 
     
@@ -54,7 +59,8 @@ export default function ValidateInfo(values, setValues) {
     errors.fname &&
     errors.lname &&
     errors.mobileNumber &&
-    errors.email
+    errors.email &&
+    errors.image
     ) {
     errors.variant = "success";
     errors.message = "Updating details...";
